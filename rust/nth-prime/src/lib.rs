@@ -16,7 +16,8 @@ pub fn is_prime(n: u32) -> bool {
         return false;
     }
 
-    for divisor in 2..n {
+    let max_divisor = (n as f32).sqrt().floor() as u32;
+    for divisor in 2..=max_divisor {
         if n % divisor == 0 {
             return false;
         }
