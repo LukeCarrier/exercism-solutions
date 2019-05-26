@@ -1,0 +1,13 @@
+# Exercism client
+/_exercism/
+
+# .NET SDK
+/csharp/*/bin/
+/csharp/*/obj/
+
+# Python interpreter
+/python/*/__pycache__/
+
+# Ruby
+/ruby/.bundle/
+/ruby/_vendor/
