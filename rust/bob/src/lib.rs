@@ -11,10 +11,11 @@ enum MessageType {
 }
 
 impl MessageType {
-    fn new(message: &str) -> Self {
-        if message.trim().is_empty() {
+    fn new(mut message: &str) -> Self {
+        message = message.trim();
+        if message.is_empty() {
             MessageType::Silence
-        } else if message.trim_end().ends_with('?') {
+        } else if message.ends_with('?') {
             MessageType::Question
         } else {
             MessageType::Statement
