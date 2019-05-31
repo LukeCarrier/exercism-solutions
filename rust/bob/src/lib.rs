@@ -1,8 +1,8 @@
-const CALM_DOWN: &str = "Calm down, I know what I'm doing!";
-const SURE: &str = "Sure.";
-const FINE: &str = "Fine. Be that way!";
-const WHOA: &str = "Whoa, chill out!";
-const WHATEVER: &str = "Whatever.";
+const SHOUTED_QUESTION: &str = "Calm down, I know what I'm doing!";
+const QUESTION: &str = "Sure.";
+const SILENCE: &str = "Fine. Be that way!";
+const SHOUTED_WILDCARD: &str = "Whoa, chill out!";
+const WILDCARD: &str = "Whatever.";
 
 enum MessageType {
     Silence,
@@ -47,10 +47,10 @@ pub fn reply(message: &str) -> &str {
     let msg_tone = MessageTone::new(message);
 
     match (msg_type, msg_tone) {
-        (MessageType::Question, MessageTone::Shouted) => CALM_DOWN,
-        (MessageType::Question, _) => SURE,
-        (MessageType::Silence, _) => FINE,
-        (_, MessageTone::Shouted) => WHOA,
-        _ => WHATEVER,
+        (MessageType::Question, MessageTone::Shouted) => SHOUTED_QUESTION,
+        (MessageType::Question, _) => QUESTION,
+        (MessageType::Silence, _) => SILENCE,
+        (_, MessageTone::Shouted) => SHOUTED_WILDCARD,
+        _ => WILDCARD,
     }
 }
