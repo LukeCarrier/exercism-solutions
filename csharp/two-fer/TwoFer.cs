@@ -1,7 +1,9 @@
-﻿public static class TwoFer
+﻿using System;
+
+public static class TwoFer
 {
-    public static string Speak()
+    public static string Speak(string you = "you", string me = "me")
     {
-        throw new NotImplementedException("You need to implement this function.");
+        return String.Format("One for {0}, one for {1}.", you, me);
     }
 }
