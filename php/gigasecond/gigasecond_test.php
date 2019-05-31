@@ -62,12 +62,9 @@ class GigasecondTest extends PHPUnit\Framework\TestCase
 
     public function testYourself()
     {
-        // Replace the string "your_birthday" with your birthday's datestring
-
-        $this->markTestSkipped("Skip");
-        $your_birthday = GigasecondTest::dateSetup("your_birthday");
+        $your_birthday = GigasecondTest::dateSetup("1993-10-29");
         $gs = from($your_birthday);
 
-        $this->assertSame("2046-10-03 01:46:39", $gs->format("Y-m-d H:i:s"));
+        $this->assertSame("2025-07-07 01:46:40", $gs->format("Y-m-d H:i:s"));
     }
 }
