@@ -1,3 +1,3 @@
 def two_fer(name=None):
     name = name if name else "you"
-    return "One for {}, one for me.".format(name)
+    return f"One for {name}, one for me."
