@@ -11,8 +11,8 @@ enum MessageType {
 }
 
 impl MessageType {
-    fn new(mut message: &str) -> Self {
-        message = message.trim();
+    fn new(message: &str) -> Self {
+        let message = message.trim();
         if message.is_empty() {
             MessageType::Silence
         } else if message.ends_with('?') {
