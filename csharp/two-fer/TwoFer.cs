@@ -2,8 +2,8 @@
 
 public static class TwoFer
 {
-    public static string Speak(string you = "you", string me = "me")
+    public static string Speak(string you = "you")
     {
-        return String.Format("One for {0}, one for {1}.", you, me);
+        return String.Format("One for {0}, one for me.", you);
     }
 }
