@@ -1,44 +1,5 @@
 <?php
 
-class StringCharacterIterator implements Iterator
-{
-    protected $string;
-    protected $position;
-    protected $tail;
-
-    public function __construct(string $string)
-    {
-        $this->string = $string;
-        $this->position = 0;
-        $this->tail = strlen($this->string) - 1;
-    }
-
-    public function current(): string
-    {
-        return $this->string{$this->position};
-    }
-
-    public function key(): int
-    {
-        return $this->position;
-    }
-
-    public function next()
-    {
-        $this->position++;
-    }
-
-    public function rewind()
-    {
-        $this->position = 0;
-    }
-
-    public function valid(): bool
-    {
-        return $this->position <= $this->tail;
-    }
-}
-
 class MessageType
 {
     const SILENCE = 1;
@@ -70,8 +31,7 @@ class MessageTone
 
     public static function from(string $message)
     {
-        $charIterator = new StringCharacterIterator($message);
-
+        $charIterator = new ArrayIterator(str_split($message));
         $letterIterator = new CallbackFilterIterator($charIterator, [static::class, 'is_alpha']);
         $letterIterator->rewind();
         $letters = $letterIterator->valid();
