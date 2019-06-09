@@ -2,8 +2,13 @@ using System;
 
 public static class Gigasecond
 {
+    public static double GIGASECOND
+    {
+        get => Math.Pow(10, 9);
+    }
+
     public static DateTime Add(DateTime moment)
     {
-        throw new NotImplementedException("You need to implement this function.");
+        return moment.AddSeconds(GIGASECOND);
     }
 }
