@@ -12,9 +12,11 @@ class Bob
     const RESPONSE_SHOUTED_WILDCARD = 'Whoa, chill out!';
     const RESPONSE_WILDCARD = 'Whatever.';
 
+    const SILENCE_CHARS = "\n\r\t\0\x0B \u{000b}\u{00a0}\u{2002}";
+
     public static function typeFrom(string $message): int
     {
-        $message = trim($message);
+        $message = trim($message, static::SILENCE_CHARS);
         if (strlen($message) === 0) {
             return static::TYPE_SILENCE;
         } elseif (substr($message, -1) === '?') {
