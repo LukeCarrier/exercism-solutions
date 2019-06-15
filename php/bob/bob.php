@@ -26,20 +26,17 @@ class Bob
         }
     }
 
-    public static function isAlpha($current, $key, $iterator)
-    {
-        return ctype_alpha($current);
-    }
-
     public static function isShouting(string $message): bool
     {
-        $charIterator = new ArrayIterator(str_split($message));
-        $letterIterator = new CallbackFilterIterator($charIterator, [static::class, 'isAlpha']);
-        $letterIterator->rewind();
-        $letters = $letterIterator->valid();
-        $allUpper = ctype_upper(implode('', iterator_to_array($letterIterator)));
+        $hasLetters = preg_match('/\p{L}/u', $message);
+        $hasLowerLetters = preg_match('/\p{Ll}/u', $message);
 
-        return $letters && $allUpper;
+        if ($hasLetters === false || $hasLowerLetters === false) {
+            throw new RuntimeException(sprintf(
+                    'PCRE error identifying characters: %d', preg_last_error()));
+        }
+
+        return $hasLetters && !$hasLowerLetters;
     }
 
     public function respondTo(string $message): string
