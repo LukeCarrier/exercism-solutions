@@ -1,6 +1,4 @@
 class HighScores
-  @scores = []
-
   attr_accessor :scores
 
   def initialize(scores)
