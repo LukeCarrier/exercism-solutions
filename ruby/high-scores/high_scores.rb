@@ -6,14 +6,14 @@ class HighScores
   end
 
   def latest
-    @scores.last
+    scores.last
   end
 
   def personal_best
-    @scores.max
+    scores.max
   end
 
   def personal_top_three
-    @scores.sort.reverse.first 3
+    scores.sort.reverse.first 3
   end
 end
