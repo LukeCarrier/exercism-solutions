@@ -1,76 +1,62 @@
 <?php
 
-class MessageType
-{
-    const SILENCE = 1;
-    const QUESTION = 2;
-    const STATEMENT = 3;
-
-    public static function from(string $message): int
-    {
-        $message = trim($message);
-        if (strlen($message) === 0) {
-            return static::SILENCE;
-        } elseif (substr($message, -1) === '?') {
-            return static::QUESTION;
-        } else {
-            return static::STATEMENT;
-        }
-    }
-}
-
-class MessageTone
-{
-    const NORMAL = 1;
-    const SHOUTED = 2;
-
-    public static function is_alpha($current, $key, $iterator)
-    {
-        return ctype_alpha($current);
-    }
-
-    public static function from(string $message)
-    {
-        $charIterator = new ArrayIterator(str_split($message));
-        $letterIterator = new CallbackFilterIterator($charIterator, [static::class, 'is_alpha']);
-        $letterIterator->rewind();
-        $letters = $letterIterator->valid();
-        $allUpper = ctype_upper(implode('', iterator_to_array($letterIterator)));
-
-        return ($letters && $allUpper) ? static::SHOUTED : static::NORMAL;
-    }
-}
-
 class Bob
 {
+    const TYPE_SILENCE = 1;
+    const TYPE_QUESTION = 2;
+    const TYPE_STATEMENT = 3;
+
+    const TONE_NORMAL = 1;
+    const TONE_SHOUTED = 2;
+
     const RESPONSE_SHOUTED_QUESTION = 'Calm down, I know what I\'m doing!';
     const RESPONSE_QUESTION = 'Sure.';
     const RESPONSE_SILENCE = 'Fine. Be that way!';
     const RESPONSE_SHOUTED_WILDCARD = 'Whoa, chill out!';
     const RESPONSE_WILDCARD = 'Whatever.';
 
+    public static function typeFrom(string $message): int
+    {
+        $message = trim($message);
+        if (strlen($message) === 0) {
+            return static::TYPE_SILENCE;
+        } elseif (substr($message, -1) === '?') {
+            return static::TYPE_QUESTION;
+        } else {
+            return static::TYPE_STATEMENT;
+        }
+    }
+
+    public static function isAlpha($current, $key, $iterator)
+    {
+        return ctype_alpha($current);
+    }
+
+    public static function toneFrom(string $message)
+    {
+        $charIterator = new ArrayIterator(str_split($message));
+        $letterIterator = new CallbackFilterIterator($charIterator, [static::class, 'isAlpha']);
+        $letterIterator->rewind();
+        $letters = $letterIterator->valid();
+        $allUpper = ctype_upper(implode('', iterator_to_array($letterIterator)));
+
+        return ($letters && $allUpper) ? static::TONE_SHOUTED : static::TONE_NORMAL;
+    }
+
     public function respondTo(string $message): string
     {
-        $messageType = MessageType::from($message);
-        $messageTone = MessageTone::from($message);
+        $messageType = static::typeFrom($message);
+        $messageTone = static::toneFrom($message);
 
         switch ($messageType) {
-            case MessageType::QUESTION:
-                switch ($messageTone) {
-                    case MessageTone::SHOUTED:
-                        return static::RESPONSE_SHOUTED_QUESTION;
-                    default:
-                        return static::RESPONSE_QUESTION;
-                }
-            case MessageType::SILENCE:
+            case static::TYPE_QUESTION:
+                return ($messageTone === static::TONE_SHOUTED)
+                    ? static::RESPONSE_SHOUTED_QUESTION : static::RESPONSE_QUESTION;
+            case static::TYPE_SILENCE:
                 return static::RESPONSE_SILENCE;
             default:
-                switch ($messageTone) {
-                    case MessageTone::SHOUTED:
-                        return static::RESPONSE_SHOUTED_WILDCARD;
-                    default:
-                        return static::RESPONSE_WILDCARD;
-                }
+                return ($messageTone === static::TONE_SHOUTED)
+                    ? static::RESPONSE_SHOUTED_WILDCARD : static::RESPONSE_WILDCARD;
         }
     }
 }
