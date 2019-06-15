@@ -6,9 +6,6 @@ class Bob
     const TYPE_QUESTION = 2;
     const TYPE_STATEMENT = 3;
 
-    const TONE_NORMAL = 1;
-    const TONE_SHOUTED = 2;
-
     const RESPONSE_SHOUTED_QUESTION = 'Calm down, I know what I\'m doing!';
     const RESPONSE_QUESTION = 'Sure.';
     const RESPONSE_SILENCE = 'Fine. Be that way!';
@@ -32,7 +29,7 @@ class Bob
         return ctype_alpha($current);
     }
 
-    public static function toneFrom(string $message)
+    public static function isShouting(string $message): bool
     {
         $charIterator = new ArrayIterator(str_split($message));
         $letterIterator = new CallbackFilterIterator($charIterator, [static::class, 'isAlpha']);
@@ -40,23 +37,21 @@ class Bob
         $letters = $letterIterator->valid();
         $allUpper = ctype_upper(implode('', iterator_to_array($letterIterator)));
 
-        return ($letters && $allUpper) ? static::TONE_SHOUTED : static::TONE_NORMAL;
+        return $letters && $allUpper;
     }
 
     public function respondTo(string $message): string
     {
         $messageType = static::typeFrom($message);
-        $messageTone = static::toneFrom($message);
+        $shouted = static::isShouting($message);
 
         switch ($messageType) {
             case static::TYPE_QUESTION:
-                return ($messageTone === static::TONE_SHOUTED)
-                    ? static::RESPONSE_SHOUTED_QUESTION : static::RESPONSE_QUESTION;
+                return $shouted ? static::RESPONSE_SHOUTED_QUESTION : static::RESPONSE_QUESTION;
             case static::TYPE_SILENCE:
                 return static::RESPONSE_SILENCE;
             default:
-                return ($messageTone === static::TONE_SHOUTED)
-                    ? static::RESPONSE_SHOUTED_WILDCARD : static::RESPONSE_WILDCARD;
+                return $shouted ? static::RESPONSE_SHOUTED_WILDCARD : static::RESPONSE_WILDCARD;
         }
     }
 }
