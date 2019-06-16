@@ -19,7 +19,7 @@ class Bob
         $message = trim($message, static::SILENCE_CHARS);
         if (strlen($message) === 0) {
             return static::TYPE_SILENCE;
-        } elseif (substr($message, -1) === '?') {
+        } elseif (preg_match('/\?$/', $message) === 1) {
             return static::TYPE_QUESTION;
         } else {
             return static::TYPE_STATEMENT;
@@ -30,11 +30,6 @@ class Bob
     {
         $hasLetters = preg_match('/\p{L}/u', $message);
         $hasLowerLetters = preg_match('/\p{Ll}/u', $message);
-
-        if ($hasLetters === false || $hasLowerLetters === false) {
-            throw new RuntimeException(sprintf(
-                    'PCRE error identifying characters: %d', preg_last_error()));
-        }
 
         return $hasLetters && !$hasLowerLetters;
     }
