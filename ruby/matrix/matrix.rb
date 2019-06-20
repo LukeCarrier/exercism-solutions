@@ -2,17 +2,20 @@ class Matrix
   attr_reader :rows, :columns
 
   def initialize(matrix)
-    @values = []
-    matrix.lines.each do |row|
-      @values.append(row.split.map { |v| v.to_i })
-    end
+    @matrix = matrix
   end
 
   def rows
-    @values
+    @rows ||= begin
+      values = []
+      @matrix.lines.each do |row|
+        values.append(row.split.map { |v| v.to_i })
+      end
+      values
+    end
   end
 
   def columns
-    @values.transpose
+    rows.transpose
   end
 end
