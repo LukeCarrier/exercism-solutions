@@ -3,7 +3,7 @@ using System.Linq;
 
 public static class ResistorColor
 {
-    static IDictionary<string, int> colorCodes = new Dictionary<string, int>()
+    private static IDictionary<string, int> colorCodes = new Dictionary<string, int>()
     {
         { "black", 0 },
         { "brown", 1 },
