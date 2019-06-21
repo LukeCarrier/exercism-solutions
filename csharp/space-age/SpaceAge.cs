@@ -18,43 +18,13 @@ public class SpaceAge
         this.seconds = seconds;
     }
 
-    public double OnEarth()
-    {
-        return seconds / EARTH_ORBIT_SECONDS;
-    }
+    public double OnEarth() => seconds / EARTH_ORBIT_SECONDS;
 
-    public double OnMercury()
-    {
-        return OnEarth() / MERCURY_ORBIT_EARTH_YEARS;
-    }
-
-    public double OnVenus()
-    {
-        return OnEarth() / VENUS_ORBIT_EARTH_YEARS; 
-    }
-
-    public double OnMars()
-    {
-        return OnEarth() / MARS_ORBIT_EARTH_YEARS;
-    }
-
-    public double OnJupiter()
-    {
-        return OnEarth() / JUPITER_ORBIT_EARTH_YEARS;
-    }
-
-    public double OnSaturn()
-    {
-        return OnEarth() / SATURN_ORBIT_EARTH_YEARS;
-    }
-
-    public double OnUranus()
-    {
-        return OnEarth() / URANUS_ORBIT_EARTH_YEARS;
-    }
-
-    public double OnNeptune()
-    {
-        return OnEarth() / NEPTUNE_ORBIT_EARTH_YEARS;
-    }
+    public double OnMercury() => OnEarth() / MERCURY_ORBIT_EARTH_YEARS;
+    public double OnVenus() => OnEarth() / VENUS_ORBIT_EARTH_YEARS; 
+    public double OnMars() => OnEarth() / MARS_ORBIT_EARTH_YEARS;
+    public double OnJupiter() => OnEarth() / JUPITER_ORBIT_EARTH_YEARS;
+    public double OnSaturn() => OnEarth() / SATURN_ORBIT_EARTH_YEARS;
+    public double OnUranus() => OnEarth() / URANUS_ORBIT_EARTH_YEARS;
+    public double OnNeptune() => OnEarth() / NEPTUNE_ORBIT_EARTH_YEARS;
 }
