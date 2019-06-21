@@ -17,4 +17,4 @@ for (( i = 0; i < ${#1}; i++ )); do
   fi
 done
 
-echo $result
+echo "$result"
