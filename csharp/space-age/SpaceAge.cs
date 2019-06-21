@@ -2,14 +2,14 @@ using System;
 
 public class SpaceAge
 {
-    const double EARTH_ORBIT_SECONDS = 31557600.0;
-    const double MERCURY_ORBIT_EARTH_YEARS = 0.2408467;
-    const double VENUS_ORBIT_EARTH_YEARS = 0.61519726;
-    const double MARS_ORBIT_EARTH_YEARS = 1.8808158;
-    const double JUPITER_ORBIT_EARTH_YEARS = 11.862615;
-    const double SATURN_ORBIT_EARTH_YEARS = 29.447498;
-    const double URANUS_ORBIT_EARTH_YEARS = 84.016846;
-    const double NEPTUNE_ORBIT_EARTH_YEARS = 164.79132;
+    private const double EARTH_ORBIT_SECONDS = 31557600.0;
+    private const double MERCURY_ORBIT_EARTH_YEARS = 0.2408467;
+    private const double VENUS_ORBIT_EARTH_YEARS = 0.61519726;
+    private const double MARS_ORBIT_EARTH_YEARS = 1.8808158;
+    private const double JUPITER_ORBIT_EARTH_YEARS = 11.862615;
+    private const double SATURN_ORBIT_EARTH_YEARS = 29.447498;
+    private const double URANUS_ORBIT_EARTH_YEARS = 84.016846;
+    private const double NEPTUNE_ORBIT_EARTH_YEARS = 164.79132;
 
     private int seconds;
 
