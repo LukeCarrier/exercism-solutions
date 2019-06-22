@@ -6,13 +6,7 @@ class Matrix
   end
 
   def rows
-    @rows ||= begin
-      values = []
-      @matrix.lines.each do |row|
-        values.append(row.split.map { |v| v.to_i })
-      end
-      values
-    end
+    @rows ||= @matrix.lines.map { |row| row.split.map(&:to_i) }
   end
 
   def columns
