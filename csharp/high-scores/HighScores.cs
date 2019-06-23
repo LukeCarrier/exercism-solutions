@@ -20,5 +20,5 @@ public class HighScores
     public IList<int> PersonalTopThree() => this.scores
             .OrderByDescending(s => s)
             .Take(3)
-            .ToArray();
+            .ToList();
 }
