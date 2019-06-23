@@ -11,7 +11,7 @@ public class HighScores
         scores = list;
     }
 
-    public IList<int> Scores() => this.scores;
+    public IList<int> Scores() => new List<int>(this.scores);
 
     public int Latest() => this.scores.Last();
 
