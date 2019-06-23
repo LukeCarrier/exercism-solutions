@@ -8,19 +8,14 @@ class Bob
     const RESPONSE_SHOUTED_WILDCARD = 'Whoa, chill out!';
     const RESPONSE_WILDCARD = 'Whatever.';
 
-    const RE_QUESTION = '/\?$/';
-    const RE_SPACE = '/[ \n\r\t\v\0\p{Z}]/u';
-    const RE_LETTER = '/\p{L}/u';
-    const RE_LOWER_LETTER = '/\p{Ll}/u';
-
     public static function stripWhitespace($message)
     {
-        return preg_replace(static::RE_SPACE, '', $message);
+        return preg_replace('/[ \n\r\t\v\0\p{Z}]/u', '', $message);
     }
 
     public static function isQuestion($message)
     {
-        return preg_match(static::RE_QUESTION, $message) === 1;
+        return preg_match('/\?$/', $message) === 1;
     }
 
     public static function isSilence($message)
@@ -30,8 +25,8 @@ class Bob
 
     public static function isShouting(string $message): bool
     {
-        $hasLetters = preg_match(static::RE_LETTER, $message);
-        $hasLowerLetters = preg_match(static::RE_LOWER_LETTER, $message);
+        $hasLetters = preg_match('/\p{L}/u', $message);
+        $hasLowerLetters = preg_match('/\p{Ll}/u', $message);
 
         return $hasLetters && !$hasLowerLetters;
     }
