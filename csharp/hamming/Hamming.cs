@@ -9,6 +9,12 @@ public static class Hamming
             throw new ArgumentException("Left and right strands must be of equal length");
         }
 
-        return firstStrand.ToCharArray().Zip(secondStrand.ToCharArray(), (s1, s2) => s1 == s2 ? 0 : 1).Sum();
+        var distance = 0;
+        for (var i = 0; i < firstStrand.Length; i++) {
+            if (firstStrand[i] != secondStrand[i]) {
+                distance++;
+            }
+        }
+        return distance;
     }
 }
