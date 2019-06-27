@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-RE_FIRST_LETTER_OF_WORD='\b[[:alpha:]]'
-acronym="$(echo "$1" | grep -o "$RE_FIRST_LETTER_OF_WORD" | tr -d '\n')"
+old_ifs="$IFS"
+IFS='- '
+for word in $1; do
+  acronym+="${word:0:1}"
+done
+IFS="$old_ifs"
 echo "${acronym^^}"
