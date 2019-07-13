@@ -5,7 +5,7 @@ public static class NucleotideCount
 {
     public static IDictionary<char, int> Count(string sequence)
     {
-        IDictionary<char, int> result = new Dictionary<char, int>()
+        var result = new Dictionary<char, int>()
         {
             { 'A', 0 },
             { 'C', 0 },
