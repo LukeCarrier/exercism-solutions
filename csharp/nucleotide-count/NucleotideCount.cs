@@ -13,9 +13,9 @@ public static class NucleotideCount
             { 'T', 0 },
         };
         foreach (var nucleotide in sequence) {
-            try {
+            if (result.ContainsKey(nucleotide)) {
                 result[nucleotide]++;
-            } catch (KeyNotFoundException) {
+            } else {
                 throw new ArgumentException($"'{nucleotide}' doesn't represent a valid nucleotide");
             }
         }
