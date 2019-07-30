@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-sum=0
+declare -i sum
 for (( i = 0; i < ${#1}; i++ )); do
-  sum=$(( $sum + ${1:$i:1} ** ${#1} ))
+  (( sum += ${1:$i:1} ** ${#1} ))
 done
 
 if (( $1 == $sum )); then
