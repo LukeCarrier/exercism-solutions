@@ -11,11 +11,8 @@ pub struct Clock {
 
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Self {
-        let mut total_minutes = hours * 60 + minutes;
-        if total_minutes < 0 {
-            total_minutes = total_minutes % MINUTES_IN_DAY + MINUTES_IN_DAY;
-        }
-        total_minutes = total_minutes % MINUTES_IN_DAY;
+        let mut total_minutes = hours * MINUTES_IN_HOUR + minutes;
+        total_minutes = (total_minutes % MINUTES_IN_DAY + MINUTES_IN_DAY) % MINUTES_IN_DAY;
 
         Self { total_minutes: total_minutes as u32 }
     }
