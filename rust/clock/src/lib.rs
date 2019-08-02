@@ -14,7 +14,11 @@ impl Clock {
         let mut total_minutes = hours * MINUTES_IN_HOUR + minutes;
         total_minutes = (total_minutes % MINUTES_IN_DAY + MINUTES_IN_DAY) % MINUTES_IN_DAY;
 
-        Self { total_minutes: total_minutes as u32 }
+        Self {
+            // Total minutes cannot be negative and u32 can represent larger
+            // positive values than i32.
+            total_minutes: total_minutes as u32,
+        }
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
