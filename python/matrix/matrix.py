@@ -1,12 +1,12 @@
-ROW_DELIMITER = "\n"
 COLUMN_DELIMITER = " "
 
 
 class Matrix(object):
     def __init__(self, matrix_string):
-        self.values = []
-        for row in matrix_string.split(ROW_DELIMITER):
-            self.values.append([int(v) for v in row.split(COLUMN_DELIMITER)])
+        self.values = [
+                [int(v) for v in row.split(COLUMN_DELIMITER)]
+                for row in matrix_string.splitlines()
+            ]
 
     def row(self, index):
         return self.values[index - 1]
