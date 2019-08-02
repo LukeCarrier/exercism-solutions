@@ -9,7 +9,7 @@ class Matrix(object):
             ]
 
     def row(self, index):
-        return self.values[index - 1]
+        return self.values[index - 1].copy()
 
     def column(self, index):
         return [row[index - 1] for row in self.values]
