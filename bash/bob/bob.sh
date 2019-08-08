@@ -1,24 +1,38 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+RESPONSE_SHOUTED_QUESTION='Calm down, I know what I'\''m doing!'
+RESPONSE_QUESTION='Sure.'
+RESPONSE_SILENCE='Fine. Be that way!'
+RESPONSE_SHOUTED_WILDCARD='Whoa, chill out!'
+RESPONSE_WILDCARD='Whatever.'
+
+strip_whitespace() {
+  echo "${1//[[:space:]]/}"
+}
+
+is_question() {
+  [[ "${1: -1}" == '?' ]]
+  return $?
+}
+
+is_shouting() {
+  re='[[:alpha:]]'
+  [[ "$1" =~ $re ]] && [[ "$1" == "${1^^}" ]]
+  return $?
+}
+
+is_silence() {
+  [[ -z "$1" ]]
+  return $?
+}
+
+message="$(strip_whitespace "$1")"
+is_shouting "$message"
+shouted=$?
+if is_silence "$message"; then
+  echo "$RESPONSE_SILENCE"
+elif is_question "$message"; then
+  (( $shouted == 0 )) && echo $RESPONSE_SHOUTED_QUESTION || echo "$RESPONSE_QUESTION"
+else
+  (( $shouted == 0 )) && echo "$RESPONSE_SHOUTED_WILDCARD" || echo "$RESPONSE_WILDCARD"
+fi
