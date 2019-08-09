@@ -13,6 +13,7 @@ class ResistorColorDuo
   }
 
   def self.value(bands)
-    10 * BANDS[bands[0]] + BANDS[bands[1]]
+    first, second = bands
+    10 * BANDS[first] + BANDS[second]
   end
 end
