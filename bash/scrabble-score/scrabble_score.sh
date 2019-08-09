@@ -1,24 +1,23 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+input="${1^^}"
+score=0
+for (( i=0; i<${#input}; i++ )); do
+  char="${input:$i:1}"
+  if [[ "$char" =~ [AEIOULNRST] ]]; then
+    (( score += 1 ))
+  elif [[ "$char" =~ [DG] ]]; then
+    (( score += 2 ))
+  elif [[ "$char" =~ [BCMP] ]]; then
+    (( score += 3 ))
+  elif [[ "$char" =~ [FHVWY] ]]; then
+    (( score += 4 ))
+  elif [[ "$char" == K ]]; then
+    (( score += 5 ))
+  elif [[ "$char" =~ [JX] ]]; then
+    (( score += 8 ))
+  elif [[ "$char" =~ [QZ] ]]; then
+    (( score += 10 ))
+  fi
+done
+echo $score
