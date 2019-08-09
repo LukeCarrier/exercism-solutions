@@ -1,5 +1,5 @@
 class ResistorColorDuo
-  BANDS = {
+  COLORS = {
     "black" => 0,
     "brown" => 1,
     "red" => 2,
@@ -14,6 +14,6 @@ class ResistorColorDuo
 
   def self.value(bands)
     first, second = bands
-    10 * BANDS[first] + BANDS[second]
+    10 * COLORS[first] + COLORS[second]
   end
 end
