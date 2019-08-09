@@ -12,18 +12,15 @@ strip_whitespace() {
 
 is_question() {
   [[ "${1: -1}" == '?' ]]
-  return $?
 }
 
 is_shouting() {
   re='[[:alpha:]]'
   [[ "$1" =~ $re ]] && [[ "$1" == "${1^^}" ]]
-  return $?
 }
 
 is_silence() {
   [[ -z "$1" ]]
-  return $?
 }
 
 message="$(strip_whitespace "$1")"
