@@ -13,7 +13,6 @@ class ResistorColorDuo
   }.transform_keys &:to_s
 
   def self.value(bands)
-    first, second = bands
-    10 * COLORS[first] + COLORS[second]
+    bands.map(&COLORS).join.to_i
   end
 end
