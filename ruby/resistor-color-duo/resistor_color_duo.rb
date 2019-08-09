@@ -1,8 +1,19 @@
 class ResistorColorDuo
-  COLORS = %w[black brown red orange yellow green blue violet grey white]
+  COLORS = {
+    black: 0,
+    brown: 1,
+    red: 2,
+    orange: 3,
+    yellow: 4,
+    green: 5,
+    blue: 6,
+    violet: 7,
+    grey: 8,
+    white: 9,
+  }.transform_keys &:to_s
 
   def self.value(bands)
     first, second = bands
-    10 * COLORS.index(first) + COLORS.index(second)
+    10 * COLORS[first] + COLORS[second]
   end
 end
