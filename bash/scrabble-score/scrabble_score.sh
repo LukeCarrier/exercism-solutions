@@ -13,4 +13,4 @@ for (( i=0; i<${#input}; i++ )); do
     [QZ])         (( score += 10 )) ;;
   esac
 done
-echo $score
+echo "$score"
