@@ -1,25 +1,21 @@
 <?php
 
+const DOUBLES = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+
 function isValid(string $input) : bool
 {
-    $valid = preg_match_all('/^[\d ]+/', $input, $digits);
-    $digits = filter_var_array($digits[0], FILTER_SANITIZE_NUMBER_INT);
-    $digits = array_reverse(str_split(implode('', $digits)));
-    if (!$valid || count($digits) <= 1) {
+    $input = str_replace(' ', '', $input);
+    if (0 !== preg_match('/[^0-9]+/', $input) || strlen($input) < 2) {
         return false;
     }
+    $input = array_reverse(str_split($input));
 
     $sum = 0;
-    foreach ($digits as $i => $digit) {
-        $digit = (int) $digit;
-        if ($i % 2 === 1) {
-            $digit *= 2;
-            if ($digit > 9) {
-                $digit -= 9;
-            }
+    foreach ($input as $i => &$digit) {
+        if ($i % 2) {
+            $digit = DOUBLES[$digit];
         }
-        $sum += $digit;
     }
 
-    return $sum % 10 === 0;
+    return array_sum($input) % 10 === 0;
 }
