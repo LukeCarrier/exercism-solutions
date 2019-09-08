@@ -1,4 +1,4 @@
-pub fn toggle(text: &str) -> String {
+pub fn toggle<'a>(text: &'a str) -> impl Iterator<Item = char> + 'a {
     text
         .chars()
         .filter(|c| c.is_ascii_alphanumeric())
@@ -10,12 +10,10 @@ pub fn toggle(text: &str) -> String {
                 c
             }
         })
-        .collect::<String>()
 }
 
 pub fn encode(plain: &str) -> String {
     toggle(plain)
-        .chars()
         .enumerate()
         .flat_map(|(i, c)| {
             if i % 5 == 0 {
@@ -25,9 +23,9 @@ pub fn encode(plain: &str) -> String {
             }.into_iter()
         })
         .skip(1)
-        .collect::<String>()
+        .collect()
 }
 
 pub fn decode(cipher: &str) -> String {
-    toggle(cipher)
+    toggle(cipher).collect()
 }
