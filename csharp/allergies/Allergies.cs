@@ -16,11 +16,7 @@ public enum Allergen
 
 public class Allergies
 {
-    public Allergen Mask
-    {
-        get;
-        protected set;
-    }
+    private Allergen Mask;
 
     public Allergies(int mask)
     {
@@ -33,7 +29,7 @@ public class Allergies
     {
         return Enum.GetValues(typeof(Allergen))
             .Cast<Allergen>()
-            .Where(allergen => IsAllergicTo(allergen))
+            .Where(IsAllergicTo)
             .ToArray();
     }
 }
