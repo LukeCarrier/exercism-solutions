@@ -7,12 +7,9 @@ function parseMarkdown($markdown)
     $isInList = false;
 
     foreach ($lines as &$line) {
-        if (preg_match('/^######(.*)/', $line, $matches)) {
-            $line = "<h6>" . trim($matches[1]) . "</h6>";
-        } elseif (preg_match('/^##(.*)/', $line, $matches)) {
-            $line = "<h2>" . trim($matches[1]) . "</h2>";
-        } elseif (preg_match('/^#(.*)/', $line, $matches)) {
-            $line = "<h1>" . trim($matches[1]) . "</h1>";
+        if (preg_match('/^(#{1,6})\s*(.*)/', $line, $matches)) {
+            $headingLevel = strlen($matches[1]);
+            $line = sprintf('<h%d>%s</h%d>', $headingLevel, $matches[2], $headingLevel);
         }
 
         if (preg_match('/\*(.*)/', $line, $matches)) {
