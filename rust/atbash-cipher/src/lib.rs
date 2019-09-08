@@ -1,7 +1,7 @@
 pub fn toggle(text: &str) -> String {
     text
         .chars()
-        .filter(|c| !c.is_whitespace() && char::is_ascii_alphanumeric(c))
+        .filter(|c| c.is_ascii_alphanumeric())
         .map(|c| c.to_ascii_lowercase())
         .map(|c| {
             if c.is_ascii_alphabetic() {
@@ -17,14 +17,13 @@ pub fn encode(plain: &str) -> String {
     toggle(plain)
         .chars()
         .enumerate()
-        .map(|(i, c)| {
+        .flat_map(|(i, c)| {
             if i % 5 == 0 {
                 vec![' ', c]
             } else {
                 vec![c]
             }.into_iter()
         })
-        .flatten()
         .skip(1)
         .collect::<String>()
 }
