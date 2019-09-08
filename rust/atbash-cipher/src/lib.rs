@@ -1,4 +1,4 @@
-pub fn toggle<'a>(text: &'a str) -> impl Iterator<Item = char> + 'a {
+pub fn toggle(text: &str) -> impl Iterator<Item = char> + '_ {
     text
         .chars()
         .filter(|c| c.is_ascii_alphanumeric())
