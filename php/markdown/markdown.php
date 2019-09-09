@@ -10,38 +10,9 @@ function parseMarkdown($markdown)
         }
 
         $line = preg_replace('/\*\s*(.*)/', '<li>\1</li>', $line);
-
-        $isBold = false;
-        $isItalic = false;
-
-        if (preg_match('/(.*)__(.*)__(.*)/', $line, $matches)) {
-            $line = $matches[1] . '<em>' . $matches[2] . '</em>' . $matches[3];
-            $isBold = true;
-        }
-
-        if (preg_match('/(.*)_(.*)_(.*)/', $line, $matches)) {
-            $line = $matches[1] . '<i>' . $matches[2] . '</i>' . $matches[3];
-            $isItalic = true;
-        }
-
-        if ($isItalic || $isBold) {
-            $line = trim($line);
-        } else {
-            $line = trim($line);
-        }
-
-        if (!preg_match('/<h|<ul|<p|<li/', $line)) {
-            $line = "<p>$line</p>";
-        }
-
-        if (preg_match('/(.*)__(.*)__(.*)/', $line, $matches)) {
-            $line = $matches[1] . '<em>' . $matches[2] . '</em>' . $matches[3];
-        }
-
-        if (preg_match('/(.*)_(.*)_(.*)/', $line, $matches)) {
-            $line = $matches[1] . '<i>' . $matches[2] . '</i>' . $matches[3];
-        }
-
+        $line = preg_replace('/__(.*)__/', '<em>\1</em>', $line);
+        $line = preg_replace('/_(.*)_/', '<i>\1</i>', $line);
+        $line = preg_replace('/^(?!<h|<ul|<p|<li)(.*)$/', '<p>\1</p>', $line);
         $line = preg_replace('/<li>(?!<em|<i)(.*)<\/li>/', '<li><p>\1</p></li>', $line);
     }
 
