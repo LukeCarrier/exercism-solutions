@@ -13,42 +13,43 @@ function parseMarkdown($markdown)
         }
 
         if (preg_match('/\*(.*)/', $line, $matches)) {
+            $line = $matches[1];
             if (!$isInList) {
                 $isInList = true;
                 $isBold = false;
                 $isItalic = false;
-                if (preg_match('/(.*)__(.*)__(.*)/', $matches[1], $matches2)) {
-                    $matches[1] = $matches2[1] . '<em>' . $matches2[2] . '</em>' . $matches2[3];
+                if (preg_match('/(.*)__(.*)__(.*)/', $line, $matches)) {
+                    $line = $matches[1] . '<em>' . $matches[2] . '</em>' . $matches[3];
                     $isBold = true;
                 }
 
-                if (preg_match('/(.*)_(.*)_(.*)/', $matches[1], $matches3)) {
-                    $matches[1] = $matches3[1] . '<i>' . $matches3[2] . '</i>' . $matches3[3];
+                if (preg_match('/(.*)_(.*)_(.*)/', $line, $matches)) {
+                    $line = $matches[1] . '<i>' . $matches[2] . '</i>' . $matches[3];
                     $isItalic = true;
                 }
 
                 if ($isItalic || $isBold) {
-                    $line = "<ul><li>" . trim($matches[1]) . "</li>";
+                    $line = "<ul><li>" . trim($line) . "</li>";
                 } else {
-                    $line = "<ul><li><p>" . trim($matches[1]) . "</p></li>";
+                    $line = "<ul><li><p>" . trim($line) . "</p></li>";
                 }
             } else {
                 $isBold = false;
                 $isItalic = false;
-                if (preg_match('/(.*)__(.*)__(.*)/', $matches[1], $matches2)) {
-                    $matches[1] = $matches2[1] . '<em>' . $matches2[2] . '</em>' . $matches2[3];
+                if (preg_match('/(.*)__(.*)__(.*)/', $line, $matches)) {
+                    $line = $matches[1] . '<em>' . $matches[2] . '</em>' . $matches[3];
                     $isBold = true;
                 }
 
-                if (preg_match('/(.*)_(.*)_(.*)/', $matches[1], $matches3)) {
-                    $matches[1] = $matches3[1] . '<i>' . $matches3[2] . '</i>' . $matches3[3];
+                if (preg_match('/(.*)_(.*)_(.*)/', $line, $matches)) {
+                    $line = $matches[1] . '<i>' . $matches[2] . '</i>' . $matches[3];
                     $isItalic = true;
                 }
 
                 if ($isItalic || $isBold) {
-                    $line = "<li>" . trim($matches[1]) . "</li>";
+                    $line = "<li>" . trim($line) . "</li>";
                 } else {
-                    $line = "<li><p>" . trim($matches[1]) . "</p></li>";
+                    $line = "<li><p>" . trim($line) . "</p></li>";
                 }
             }
         } else {
