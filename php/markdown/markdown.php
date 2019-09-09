@@ -1,5 +1,14 @@
 <?php
 
+const TRANSFORMS = [
+    '/\*\s*(.*)/' => '<li>\1</li>',
+    '/__(.*)__/' => '<em>\1</em>',
+    '/_(.*)_/' => '<i>\1</i>',
+    '/^(?!<h|<ul|<p|<li)(.*)$/' => '<p>\1</p>',
+    '/<li>(?!<em|<i)(.*)<\/li>/' => '<li><p>\1</p></li>',
+    '/(<li>.*<\/li>(\n|$))+/' => '<ul>\0</ul>'
+];
+
 function parseMarkdown($markdown)
 {
     $markdown = preg_replace_callback('/^(#{1,6})\s*(.*)/', function($matches) {
@@ -7,11 +16,7 @@ function parseMarkdown($markdown)
         return sprintf('<h%d>%s</h%d>', $headingLevel, $matches[2], $headingLevel);
     }, $markdown);
 
-    $markdown = preg_replace('/\*\s*(.*)/', '<li>\1</li>', $markdown);
-    $markdown = preg_replace('/__(.*)__/', '<em>\1</em>', $markdown);
-    $markdown = preg_replace('/_(.*)_/', '<i>\1</i>', $markdown);
-    $markdown = preg_replace('/^(?!<h|<ul|<p|<li)(.*)$/', '<p>\1</p>', $markdown);
-    $markdown = preg_replace('/<li>(?!<em|<i)(.*)<\/li>/', '<li><p>\1</p></li>', $markdown);
+    $markdown = preg_replace(array_keys(TRANSFORMS), array_values(TRANSFORMS), $markdown);
 
-    return str_replace("\n", '', preg_replace('/(<li>.*<\/li>(\n|$))+/', '<ul>\0</ul>', $markdown));
+    return str_replace("\n", '', $markdown);
 }
