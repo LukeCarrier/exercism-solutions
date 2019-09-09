@@ -2,19 +2,16 @@
 
 function parseMarkdown($markdown)
 {
-    $lines = explode("\n", $markdown);
-    foreach ($lines as &$line) {
-        if (preg_match('/^(#{1,6})\s*(.*)/', $line, $matches)) {
-            $headingLevel = strlen($matches[1]);
-            $line = sprintf('<h%d>%s</h%d>', $headingLevel, $matches[2], $headingLevel);
-        }
+    $markdown = preg_replace_callback('/^(#{1,6})\s*(.*)/', function($matches) {
+        $headingLevel = strlen($matches[1]);
+        return sprintf('<h%d>%s</h%d>', $headingLevel, $matches[2], $headingLevel);
+    }, $markdown);
 
-        $line = preg_replace('/\*\s*(.*)/', '<li>\1</li>', $line);
-        $line = preg_replace('/__(.*)__/', '<em>\1</em>', $line);
-        $line = preg_replace('/_(.*)_/', '<i>\1</i>', $line);
-        $line = preg_replace('/^(?!<h|<ul|<p|<li)(.*)$/', '<p>\1</p>', $line);
-        $line = preg_replace('/<li>(?!<em|<i)(.*)<\/li>/', '<li><p>\1</p></li>', $line);
-    }
+    $markdown = preg_replace('/\*\s*(.*)/', '<li>\1</li>', $markdown);
+    $markdown = preg_replace('/__(.*)__/', '<em>\1</em>', $markdown);
+    $markdown = preg_replace('/_(.*)_/', '<i>\1</i>', $markdown);
+    $markdown = preg_replace('/^(?!<h|<ul|<p|<li)(.*)$/', '<p>\1</p>', $markdown);
+    $markdown = preg_replace('/<li>(?!<em|<i)(.*)<\/li>/', '<li><p>\1</p></li>', $markdown);
 
-    return preg_replace('/(<li>.*<\/li>(\n|$))+/', '<ul>\0</ul>', join($lines));
+    return str_replace("\n", '', preg_replace('/(<li>.*<\/li>(\n|$))+/', '<ul>\0</ul>', $markdown));
 }
