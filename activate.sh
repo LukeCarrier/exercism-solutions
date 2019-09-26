@@ -10,7 +10,9 @@ elif [ -n "$ZSH_VERSION" ]; then
   . "${_root}/_exercism/shell/exercism_completion.zsh"
 fi
 
-exercism configure --workspace "$_root"
+if [[ "$(exercism workspace)" != "$_root" ]]; then
+  exercism configure --workspace "$_root"
+fi
 
 solve() {
   local track_exercise="$1"
