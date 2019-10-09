@@ -2,14 +2,11 @@
 
 function toDecimal(string $number): int
 {
-    $places = str_split(strrev($number));
-    $outOfRange = array_filter($places, function($place) {
-        return $place > 2;
-    });
-    if (count($outOfRange)) {
+    if (!preg_match('/^[0-2]+$/', $number)) {
         return 0;
     }
 
+    $places = str_split(strrev($number));
     array_walk($places, function(&$number, $place) {
         $number = $number * 3 ** $place;
     });
