@@ -2,17 +2,13 @@
 
 square() {
   local num="$1"
-  if (( $num == 1)); then
-    echo 1
-    return
-  fi
-  echo "2^(${num}-1)" | bc
+  bc <<< "2^(${num}-1)"
 }
 total() {
   result=0
   for index in {1..64}; do
     grains="$(square "$index")"
-    result="$(echo "${result}+${grains}" | bc)"
+    result="$(bc <<< "${result}+${grains}")"
   done
   echo $result
 }
