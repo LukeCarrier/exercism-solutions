@@ -4,29 +4,19 @@ using System.Linq;
 
 public class GradeSchool
 {
-    private IList<(string Name, int Grade)> students;
-
-    public GradeSchool()
-    {
-        students = new List<(string, int)>();
-    }
+    private Dictionary<string, int> students = new Dictionary<string, int>();
 
     public void Add(string student, int grade)
     {
-        students.Add((student, grade));
+        students[student] = grade;
     }
 
-    public IEnumerable<string> Roster()
-    => students
-        .OrderBy(s => s.Grade)
-        .ThenBy(s => s.Name)
-        .Select(s => s.Name)
-        .ToArray();
+    public IEnumerable<string> Roster() => from student in students
+            orderby student.Value, student.Key
+            select student.Key;
 
-    public IEnumerable<string> Grade(int grade)
-    => students
-        .OrderBy(s => s.Name)
-        .Where(s => s.Grade == grade)
-        .Select(s => s.Name)
-        .ToArray();
+    public IEnumerable<string> Grade(int grade) => from student in students
+            orderby student.Key
+            where student.Value == grade
+            select student.Key;
 }
