@@ -16,7 +16,6 @@ fn test_push_increments_length() {
 }
 
 #[test]
-#[ignore]
 fn test_pop_decrements_length() {
     let mut list: SimpleLinkedList<u32> = SimpleLinkedList::new();
     list.push(1);
@@ -28,7 +27,6 @@ fn test_pop_decrements_length() {
 }
 
 #[test]
-#[ignore]
 fn test_pop_returns_head_element_and_removes_it() {
     let mut list: SimpleLinkedList<u32> = SimpleLinkedList::new();
     list.push(1);
