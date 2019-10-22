@@ -2,7 +2,7 @@
 
 square() {
   local num="$1"
-  bc <<< "2^(${num}-1)"
+  printf '%u\n' "$(( 2 ** ($num - 1) ))"
 }
 total() {
   result=0
