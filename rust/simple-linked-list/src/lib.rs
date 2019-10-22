@@ -1,4 +1,4 @@
-use std::iter::FromIterator;
+use std::{iter::FromIterator, mem};
 
 pub struct Node<T> {
     element: T,
@@ -35,8 +35,11 @@ impl<T> SimpleLinkedList<T> {
         len
     }
 
-    pub fn push(&mut self, _element: T) {
-        unimplemented!()
+    pub fn push(&mut self, element: T) {
+        self.head = Some(Box::new(Node {
+            element: element,
+            next: mem::replace(&mut self.head, None)
+        }));
     }
 
     pub fn pop(&mut self) -> Option<T> {
