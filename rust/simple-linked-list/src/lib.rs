@@ -1,18 +1,38 @@
 use std::iter::FromIterator;
 
+pub struct Node<T> {
+    element: T,
+    next: Option<Box<Self>>,
+}
+
+impl<T> Node<T> {
+    pub fn new(element: T) -> Self {
+        Self {
+            element,
+            next: None,
+        }
+    }
+}
+
 pub struct SimpleLinkedList<T> {
-    // Delete this field
-    // dummy is needed to avoid unused parameter error during compilation
-    dummy: ::std::marker::PhantomData<T>,
+    head: Option<Box<Node<T>>>,
 }
 
 impl<T> SimpleLinkedList<T> {
     pub fn new() -> Self {
-        unimplemented!()
+        Self {
+            head: None,
+        }
     }
 
     pub fn len(&self) -> usize {
-        unimplemented!()
+        let mut len = 0;
+        let mut current_node = &self.head;
+        while let Some(node) = current_node {
+            len += 1;
+            current_node = &node.next;
+        }
+        len
     }
 
     pub fn push(&mut self, _element: T) {
