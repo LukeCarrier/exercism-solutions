@@ -50,7 +50,7 @@ impl<T> SimpleLinkedList<T> {
     }
 
     pub fn peek(&self) -> Option<&T> {
-        unimplemented!()
+        self.head.as_ref().map(|n| &n.element)
     }
 
     pub fn rev(self) -> SimpleLinkedList<T> {
