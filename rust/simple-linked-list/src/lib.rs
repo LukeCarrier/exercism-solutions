@@ -53,8 +53,12 @@ impl<T> SimpleLinkedList<T> {
         self.head.as_ref().map(|n| &n.element)
     }
 
-    pub fn rev(self) -> SimpleLinkedList<T> {
-        unimplemented!()
+    pub fn rev(mut self) -> SimpleLinkedList<T> {
+        let mut result = SimpleLinkedList::new();
+        while let Some(element) = self.pop() {
+            result.push(element);
+        }
+        result
     }
 }
 
