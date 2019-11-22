@@ -2,6 +2,7 @@
 
 class Robot
 {
+    const NUM_DIRECTIONS = 4;
     const DIRECTION_NORTH = 0;
     const DIRECTION_EAST = 1;
     const DIRECTION_SOUTH = 2;
@@ -41,7 +42,13 @@ class Robot
 
     protected function turn(int $amount)
     {
-        $this->direction = (4 + (($this->direction + $amount) % 4)) % 4;
+        // Turn in the specified direction
+        $this->direction += $amount;
+
+        // Keep the direction within bounds (range 0-3; for the number of directions)
+        $this->direction %= static::NUM_DIRECTIONS;
+        $this->direction += static::NUM_DIRECTIONS;
+        $this->direction %= static::NUM_DIRECTIONS;
     }
 
     public function turnLeft()
